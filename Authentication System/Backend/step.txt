@@ -1,0 +1,8 @@
+1. npm init -y 
+2. npm i express 
+3. npm i mongoose
+4. npm i morgan
+5. npm i dotenv  // .env is always out of the source
+
+url : mongodb+srv://yt-auth-server:jixmen-3kuxmo-tivZeh@yt-auth.ltcx0wl.mongodb.net/
+mongodb Password : jixmen-3kuxmo-tivZeh
