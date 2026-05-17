@@ -98,7 +98,7 @@ export async function refreshToken(req,res){
     expiresIn : "7d"
   })
   
-  res.cookie("refreshtoken",refreshToken,{
+  res.cookie("refreshtoken",newRefreshToken,{
     httpOnly : true,
     secure : true,
     sameSite : "none",
