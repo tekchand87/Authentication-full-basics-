@@ -1,2 +1,1 @@
-# Projects
-Backend development practice using Node.js, Express, and MongoDB
+basics Idea how to make a authentication Login input output 
