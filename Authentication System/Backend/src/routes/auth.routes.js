@@ -32,4 +32,9 @@ authRouter.get('/logout',authController.logout)
  * -> get api/auth/logoutall
  */
 authRouter.get('/logoutall',authController.logoutAll)
+
+/**
+ * -> get api/auth/verify-email
+ */
+authRouter.get('/verify-email',authController.verifyEmail)
 export default authRouter;

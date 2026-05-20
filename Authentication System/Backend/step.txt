@@ -4,9 +4,13 @@
 4. npm i dotenv  // .env is always out of the source
 5. npm i jsonwebtoken : go to the website wbtsecrets.com
 6. npm i cookie-parser
-
-
+7. npm i nodemailer
+## Nodemailer : github.com/ankurdotio/Difference-Backend-video/tree/main/026-nodemailer 
 . npm i morgan
+
+
+### https://myaccount.google.com/apppasswords?utm_source=chatgpt.com&rapt=AEjHL4M7ut8HpMDOpFeZQxVVP2WcuwHGS0moLOeYVv-XtX3mtSLYpxC9WOhekW54zFFALaj98rMK6Oo-B_KgYFL-TGZecfRZzw7z9x8lwd4IxkC-Jb0KWH4
+
 
 ## steps to make a Authentication System
 1. import express and app and the listen
