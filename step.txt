@@ -1,0 +1,44 @@
+1. npm init -y 
+2. npm i express 
+3. npm i mongoose
+4. npm i dotenv  // .env is always out of the source
+5. npm i jsonwebtoken : go to the website wbtsecrets.com
+6. npm i cookie-parser
+7. npm i nodemailer
+## Nodemailer : github.com/ankurdotio/Difference-Backend-video/tree/main/026-nodemailer 
+. npm i morgan
+
+
+### https://myaccount.google.com/apppasswords?utm_source=chatgpt.com&rapt=AEjHL4M7ut8HpMDOpFeZQxVVP2WcuwHGS0moLOeYVv-XtX3mtSLYpxC9WOhekW54zFFALaj98rMK6Oo-B_KgYFL-TGZecfRZzw7z9x8lwd4IxkC-Jb0KWH4
+
+
+## steps to make a Authentication System
+1. import express and app and the listen
+2. connect the mongodb
+3. then we create a UserModel 
+4. then we create a controller in the we will write our logic 
+5. In the controller we create a logic functions 
+=> Register :
+   -> In this one first we load the from the req 
+   ->  we check whether it is already present or not 
+   ->  we hashpassword : crypto use 
+   -> create we user 
+   -> return data with the token 
+
+=>GetMe
+  -> first create a router in the routes 
+  -> then creates router in the controller
+  -> first we will fetch the token -> req.headers.authorization?.split(' ')[1]
+  -> token is there or not 
+  -> from the token we will find the user and check exist or not 
+  -> from the token we will give me response
+
+=> refeshToken
+  -> first we will update the regsiter function 
+  -> in the we will create a accesstoken and the refreshtoken 
+  -> then we will make a route of the refresh token 
+  -> after that in refresh token we will get the refresh token from the cookie
+  -> we will check the refresh token after that we will create a new access token 
+  -> for extra layer of security we will also change the refresh token
+
+
