@@ -66,6 +66,67 @@ export async function register(req,res){
   })
 }
 
+export async function login(req,res){
+  const {email,password} = req.body;
+
+  const user = await userModel.findOne({
+    email
+  })
+
+  if(!user){
+    return res.status(401).json({
+      message : "Invalid email or password"
+    }) 
+  }
+  const hashedpasswords = crypto.createHash("sha256").update(password).digest("hex");
+
+  const isPasswordValid = hashedpasswords === user.password;
+
+  if(!isPasswordValid){
+    return res.status(401).json({
+      message : "Invalid email or password"
+    })
+  }
+
+  const refreshtoken = jwt.sign({
+    id : user._id,
+  },config.JWT_SECRET,{
+    expiresIn : "7d"
+  })
+
+  const refreshtokneHash = crypto.createHash("sha256").update(refreshtoken).digest("hex");
+
+  const session = await sessionModel.create({
+    user : user._id,
+    refreshTokenHash : refreshtokneHash,
+    ip : req.ip,
+    userAgent : req.headers['user-agent']
+  })
+
+  const accesstoken = jwt.sign({
+    id : user._id,
+    sessionID : session._id
+  },config.JWT_SECRET,{
+    expiresIn : "15m"
+  })
+
+  res.cookie("refreshtoken",refreshtoken,{
+    httpOnly : true,
+    secure : true,
+    sameSite : "strict",
+    maxAge : 7*24*60*60*1000 // 7 days 
+  })
+
+  return res.status(200).json({
+    message : "logged in successfully",
+    user : {
+      username : user.username,
+      email : user.email
+    },
+    accesstoken
+  })
+}
+
 export async function getMe(req,res){
   const token = req.headers.authorization?.split(" ")[1];
   if(!token){
@@ -89,7 +150,7 @@ export async function getMe(req,res){
 }
 
 export async function refreshToken(req,res){
-  
+
   const refreshtoken = req.cookies.refreshtoken;
   if(!refreshtoken){
     return res.status(401).json({
@@ -173,4 +234,29 @@ export async function logout(req,res){
   })
 
 
+}
+
+export async function logoutAll(req,res){
+  const refreshToken = req.cookies.refreshtoken;
+  
+  if(!refreshToken){
+    return res.status(401).json({
+      message : "Refresh token not found"
+    })
+  };
+
+  const decoded = jwt.verify(refreshToken,config.JWT_SECRET);
+
+  await sessionModel.updateMany({
+    user : decoded.id,
+    revoked : false
+  },{
+    revoked : true
+  });
+
+  res.clearCookie("refreshtoken");
+
+  res.status(200).json({
+    message : "logged out from all devices successfully"
+  })
 }
