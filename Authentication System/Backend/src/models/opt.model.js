@@ -15,6 +15,9 @@ const otpSchema = new mongoose.Schema({
     type : String,
     required : [true,"otpHash is required"]
   },
+  expiresAt : {
+    type : Date,
+    required : true
 },{
   timestamps : true
 })
